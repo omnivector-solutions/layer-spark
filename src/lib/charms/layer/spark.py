@@ -15,12 +15,17 @@ from charms.layer.spark_base import (
 KV = unitdata.kv()
 
 
-def render_spark_env_and_defaults():
+def render_spark_env_and_defaults(ctxt=None):
     """Unpack the tarballs, render the config, chown the dirs.
     """
+
+    if ctxt:
+        context = ctxt
+    else:
+        context = {}
+
     conf = config()
 
-    ctxt = {}
     # Generate config context
     if conf.get('object-storage-gateway') and \
        conf.get('aws-access-key') and \
@@ -28,21 +33,21 @@ def render_spark_env_and_defaults():
 
         model_uuid = os.getenv('JUJU_MODEL_UUID')[-6:]
         bucket = "s3a://spark-event-logs/juju-spark-{}".format(model_uuid)
-        ctxt['event_log_dir'] = bucket
-        ctxt['hadoop_version'] = KV.get('hadoop_version')
-        ctxt['object_storage_gateway'] = conf.get('object-storage-gateway')
-        ctxt['aws_access_key'] = conf.get('aws-access-key')
-        ctxt['aws_secret_key'] = conf.get('aws-secret-key')
-        ctxt['s3_ssl_enabled'] = conf.get('s3-ssl-enabled')
+        context['event_log_dir'] = bucket
+        context['hadoop_version'] = KV.get('hadoop_version')
+        context['object_storage_gateway'] = conf.get('object-storage-gateway')
+        context['aws_access_key'] = conf.get('aws-access-key')
+        context['aws_secret_key'] = conf.get('aws-secret-key')
+        context['s3_ssl_enabled'] = conf.get('s3-ssl-enabled')
     else:
-        ctxt['event_log_dir'] = '/tmp/spark-events'
+        context['event_log_dir'] = '/tmp/spark-events'
 
     # Render the configs
     if SPARK_DEFAULTS.exists():
         SPARK_DEFAULTS.unlink()
-    render('spark-defaults.conf', str(SPARK_DEFAULTS), context=ctxt)
+    render('spark-defaults.conf', str(SPARK_DEFAULTS), context=context)
 
     if SPARK_ENV_SH.exists():
         SPARK_ENV_SH.unlink()
-    render('spark-env.sh', str(SPARK_ENV_SH), context=ctxt)
+    render('spark-env.sh', str(SPARK_ENV_SH), context=context)
     check_call(['chmod', '755', str(SPARK_ENV_SH)])
