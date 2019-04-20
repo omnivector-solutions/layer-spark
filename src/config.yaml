@@ -1,0 +1,26 @@
+options:  
+  s3-ssl-enabled:
+    type: string
+    default: "true"
+    description: |
+      Whether or not to enable ssl s3 connection.
+  shuffle-enabled:
+    type: boolean
+    default: true
+    description: |
+      Enable the spark shuffle service.
+  aws-access-key:
+    type: string
+    default: ""
+    description: |
+      AWS access key
+  aws-secret-key:
+    type: string
+    default: ""
+    description: |
+      AWS secret key
+  object-storage-gateway:
+    type: string
+    default: ""
+    description: |
+      The HTTP  or HTTPS object storage gateway

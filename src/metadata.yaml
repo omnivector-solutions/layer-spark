@@ -1,0 +1,22 @@
+name: spark
+series:
+  - bionic
+summary: Apache Spark Charm
+maintainers:
+  - Omnivector Solutions <admin@omnivector.solutions>
+description: |
+  Apache Spark is a unified analytics engine for big data processing,
+  with built-in modules for streaming, SQL, machine learning and graph processing.
+tags:
+  - spark
+  - omnivector
+  - bigdata
+subordinate: false
+provides:
+  spark-master:
+    interface: spark
+requires:
+  spark-worker:
+    interface: spark
+extra-bindings:
+  spark:

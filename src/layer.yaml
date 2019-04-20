@@ -1,0 +1,7 @@
+includes: 
+- layer:basic
+- layer:leadership
+- layer:status
+- layer:spark-base
+- interface:spark
+repo: "https://github.com/omnivector-solutions/juju-layer-spark"
