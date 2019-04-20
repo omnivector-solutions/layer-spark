@@ -42,7 +42,7 @@ def render_spark_env_and_defaults():
         SPARK_DEFAULTS.unlink()
     render('spark-defaults.conf', str(SPARK_DEFAULTS), context=ctxt)
 
-    if SPARK_ENV.exists():
-        SPARK_ENV.unlink()
-    render('spark-env.sh', str(SPARK_ENV), context=ctxt)
-    check_call(['chmod', '755', str(SPARK_ENV)])
+    if SPARK_ENV_SH.exists():
+        SPARK_ENV_SH.unlink()
+    render('spark-env.sh', str(SPARK_ENV_SH), context=ctxt)
+    check_call(['chmod', '755', str(SPARK_ENV_SH)])
