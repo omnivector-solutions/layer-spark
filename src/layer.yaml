@@ -3,5 +3,6 @@ includes:
 - layer:leadership
 - layer:status
 - layer:spark-base
+- layer:hadoop-base
 - interface:spark
 repo: "https://github.com/omnivector-solutions/juju-layer-spark"
