@@ -45,9 +45,10 @@ def render_spark_env_and_defaults(ctxt=None):
     # Render the configs
     if SPARK_DEFAULTS.exists():
         SPARK_DEFAULTS.unlink()
-    render('spark-defaults.conf', str(SPARK_DEFAULTS), context=context)
+    render('spark-defaults.conf', str(SPARK_DEFAULTS), context=context,
+           owner='spark', group='spark')
 
     if SPARK_ENV_SH.exists():
         SPARK_ENV_SH.unlink()
-    render('spark-env.sh', str(SPARK_ENV_SH), context=context)
-    check_call(['chmod', '755', str(SPARK_ENV_SH)])
+    render('spark-env.sh', str(SPARK_ENV_SH), context=context,
+           perms=0o755, owner='spark', group='spark')

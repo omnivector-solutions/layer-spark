@@ -90,7 +90,8 @@ def spark_config_available():
     """Render the spark-env.sh and spark-defaults.conf.
     """
     ctxt = {'bind_address': KV.get('bind_address'),
-            'master_ip': _leader_get('master_ip')}
+            'master_ip': _leader_get('master_ip'),
+            'master_uri': _leader_get('master_uri')}
     render_spark_env_and_defaults(ctxt)
     set_flag('spark.config.available')
 
