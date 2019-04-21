@@ -1,0 +1,23 @@
+#!/usr/local/sbin/charm-env python
+import os
+from subprocess import check_call
+
+import charms.leadership
+
+
+if __name__ == "__main__":
+
+    master_uri = charms.leadership.leader_get('master_uri')
+    spark_examples_dir = '/opt/spark/examples/jars'
+
+    for dir, sub_dirs, files in os.walk(spark_examples_dir):
+        for f in files:
+            if 'spark-examples' in f:
+                spark_examples_file = f
+
+    spark_examples = os.path.join(spark_examples_dir, spark_examples_file)
+
+    check_call(['sudo', '-H', '-u', 'spark', 'bash', '-c',
+                ('/opt/spark/bin/spark-submit --class '
+                'org.apache.spark.examples.SparkPi --master {} {}').format(
+                    master_uri, spark_examples)])
