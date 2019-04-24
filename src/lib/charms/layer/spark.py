@@ -26,6 +26,8 @@ def render_spark_env_and_defaults(ctxt=None):
 
     conf = config()
 
+    context['shuffle_enabled'] = conf.get('shuffle-enabled')
+
     # Generate config context
     if conf.get('object-storage-gateway') and \
        conf.get('aws-access-key') and \
