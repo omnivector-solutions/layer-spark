@@ -1,9 +1,4 @@
 options:  
-  shuffle-enabled:
-    type: string
-    default: "true"
-    description: |
-      Whether or not to enable the shuffle service.
   s3-ssl-enabled:
     type: string
     default: "true"
